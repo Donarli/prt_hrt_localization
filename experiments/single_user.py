@@ -121,8 +121,8 @@ def main():
     sc = ax.scatter(
     x_true_all, y_true_all, c=errors, s=42,
     cmap="viridis", edgecolors="none"
-)
-    # draw_user_region(ax)
+    )
+    draw_user_region(ax)
 
     xmax = R_MAX * np.sin(np.deg2rad(max(abs(THETA_MIN), abs(THETA_MAX))))
     ax.set_xlim(-xmax - 25, xmax + 25)

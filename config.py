@@ -57,7 +57,7 @@ class SimulationConfig:
     reference_range: float = 300.0
     reference_snr_db: float = 10.0
     pulse_span_sigma: float = 6.0
-    rng_seed: int = 0
+    rng_seed: int = 47
 
     @property
     def noise_power(self) -> float:
