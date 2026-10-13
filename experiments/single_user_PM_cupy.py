@@ -92,7 +92,7 @@ def main():
         noisy_rx, _ = add_awgn(clean_rx, rng=rng_noise)
 
         # result = localize(noisy_rx, time_axis, antenna_x, theta_true, tau_true)
-        result = localize_PhaseMatching(clean_rx, time_axis, antenna_x, theta_true, tau_true, 
+        result = localize_PhaseMatching(noisy_rx, time_axis, antenna_x, theta_true, tau_true, 
                                         use_radon = False)
         # result = localize_PhaseMatching(noisy_rx, time_axis, antenna_x, theta_true, tau_true, result.R)
 

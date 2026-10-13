@@ -27,7 +27,7 @@ from localization.pipeline import LocalizationResult, localize
 
 PM_THETA_MIN, PM_THETA_MAX = -60.0, 60.0
 PM_R_MIN, PM_R_MAX = 50.0, 400.0
-PM_R_GRID          = np.linspace(PM_R_MIN, PM_R_MAX, 15)
+PM_R_GRID          = np.linspace(PM_R_MIN, PM_R_MAX, 60)
 
 # ============================================================
 # Space-time Beam settings
