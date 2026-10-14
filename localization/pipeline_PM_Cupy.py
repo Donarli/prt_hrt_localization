@@ -34,7 +34,7 @@ PM_R_GRID          = np.linspace(PM_R_MIN, PM_R_MAX, 60)
 # ============================================================
 K     = 701
 BW    = SYSTEM.bandwidth
-PRNT  = False
+PRNT  = True
 
 # ============================================================
 # Helpers
@@ -373,9 +373,10 @@ def localize_PhaseMatching(rx, time_axis, antenna_x, theta_hint=None, tau_hint=N
     # Define Iteration Parameters 
     # =======================================================
     max_iter    = 50                        # maximum iterations 
-    grad_tol    = 1e-9                      # tolerance of gradient
-    step_size   = 0.85                       # Step-size of Newton's Update 
+    grad_tol    = 1e-11                      # tolerance of gradient
+    step_size   = 0.4                       # Step-size of Newton's Update 
     R_est       = R_init                    # Define initial R
+    power_delta_tol = -1e-6                 # Tolerance of Power Delta
     theta_est   = theta_init                # Define initial Theta
     power_hist  = 0                         # Used to Compute Power Delta
     t_confine   = None                         # Confinement of Time-domain Samples                          
@@ -408,7 +409,7 @@ def localize_PhaseMatching(rx, time_axis, antenna_x, theta_hint=None, tau_hint=N
                 f"tDelta: {abs(theta_delta): .2e},  "
                 f"Grad_Norm: {grad_norm: .2e} !!")
 
-        if power_delta < 1e-9: 
+        if power_delta < power_delta_tol: 
             break
 
         power_hist = power_new

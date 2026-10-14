@@ -28,7 +28,7 @@ from localization.pipeline import localize
 from localization.pipeline_PM_Cupy import localize_PhaseMatching
 
 
-N_MC = 2000
+N_MC = 200
 R_MIN, R_MAX = 50.0, 400.0
 THETA_MIN, THETA_MAX = -60.0, 60.0
 CLOCK_OFFSET = 10e-9
@@ -82,8 +82,8 @@ def main():
     y_true_all = np.zeros(N_MC)
 
     for i in trange(N_MC, desc="Monte Carlo"):
-        R_true = rng_pos.uniform(R_MIN, R_MAX)
-        theta_true = rng_pos.uniform(THETA_MIN, THETA_MAX)
+        R_true = rng_pos.uniform(R_MIN, R_MAX) + 80
+        theta_true = rng_pos.uniform(THETA_MIN, THETA_MAX) - 72
         tau_true = R_true / C + CLOCK_OFFSET
         x_true, y_true = polar_to_xy(R_true, theta_true)
 
@@ -92,7 +92,7 @@ def main():
         noisy_rx, _ = add_awgn(clean_rx, rng=rng_noise)
 
         # result = localize(noisy_rx, time_axis, antenna_x, theta_true, tau_true)
-        result = localize_PhaseMatching(noisy_rx, time_axis, antenna_x, theta_true, tau_true, 
+        result = localize_PhaseMatching(clean_rx, time_axis, antenna_x, theta_true, tau_true,
                                         use_radon = False)
         # result = localize_PhaseMatching(noisy_rx, time_axis, antenna_x, theta_true, tau_true, result.R)
 
@@ -100,14 +100,14 @@ def main():
         errors[i] = np.hypot(result.x - x_true, result.y - y_true)
         snrs[i] = snr_db_at_range(R_true)
 
-    ALE = np.max(errors)
+    ALE = np.mean(errors)
     RMSE = np.sqrt(np.mean(errors**2))
 
     print("\n" + "=" * 50)
     print(f"N        : {N_MC}")
     print(f"Tx power : {SIM.tx_power_dbm:.3f} dBm")
     print(f"SNR range: {snrs.min():.3f} to {snrs.max():.3f} dB")
-    print(f"Max-ALE  : {ALE:.6f} m")
+    print(f"ALE  : {ALE:.6f} m")
     print(f"RMSE     : {RMSE:.6f} m")
     print("=" * 50)
 
