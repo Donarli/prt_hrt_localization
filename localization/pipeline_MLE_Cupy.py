@@ -18,7 +18,11 @@ from pathlib import Path
 import numpy as np
 
 os.environ.setdefault("CUPY_CACHE_DIR", str(Path(__file__).resolve().parents[1] / ".cupy_cache"))
-import cupy as cp
+try:
+    import cupy as cp
+except:
+    import numpy as cp
+    
 
 from config import C, SYSTEM, ARRAY
 from signal_model.propagation import propagation_delays

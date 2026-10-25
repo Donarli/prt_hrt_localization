@@ -23,12 +23,12 @@ from tqdm import trange
 from config import C, SYSTEM, ARRAY, SIM
 from signal_model.propagation import propagation_delays, received_signal
 from signal_model.noise import add_awgn
-from localization.pipeline import localize
+# from localization.pipeline import localize
 # from localization.pipeline_PM_Cupy import localize_PhaseMatching
 # from localization.pipeline_PM_Cupy import localize_PhaseMatching
 from localization.pipeline_MLE_Cupy import localize_MLE
 
-N_MC = 2000
+N_MC = 200
 R_MIN, R_MAX = 50.0, 400.0
 THETA_MIN, THETA_MAX = -60.0, 60.0
 CLOCK_OFFSET = 10e-9

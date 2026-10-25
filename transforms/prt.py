@@ -10,7 +10,10 @@ is converted back to numpy.ndarray for compatibility with existing code.
 """
 
 import numpy as np
-import cupy as cp
+try:
+    import cupy as cp
+except:
+    import numpy as cp
 from scipy.fft import next_fast_len
 
 from config import SYSTEM
